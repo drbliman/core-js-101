@@ -178,8 +178,16 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  let arr = [];
+  arr = str.split('');
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] === '<' || arr[i] === '>') {
+      arr.splice(i, 1);
+      i -= 1;
+    }
+  }
+  return arr.join('');
 }
 
 
