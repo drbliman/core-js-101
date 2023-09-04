@@ -41,7 +41,7 @@ function getStringLength(value) {
 /**
  * Returns the result of string template and given parameters firstName and lastName.
  * Please do not use concatenation, use template string :
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/templateStrings
  *
  * @param {string} firstName
  * @param {string} lastName
@@ -133,7 +133,7 @@ function repeatString(value, count) {
 }
 
 /**
- * Remove the first occurrence of string inside another string
+ * 8
  *
  * @param {string} str
  * @param {string} value
@@ -145,15 +145,26 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  let arr = [];
-  arr = str.split(' ');
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] === value) {
-      arr.splice(i, 1);
-      i -= 1;
+  let arrStr = [];
+  let arrValur = [];
+  let sum = 0;
+  arrStr = str.split('');
+  arrValur = value.split('');
+  for (let i = 0; i < arrStr.length; i += 1) {
+    if (arrStr[i] === arrValur[0]) {
+      sum = 0;
+      for (let j = 0; j < arrValur.length; j += 1) {
+        if (arrStr[i + j] === arrValur[0 + j]) {
+          sum += 1;
+        }
+      }
+    }
+    if (sum === arrValur.length) {
+      arrStr.splice(i, arrValur.length);
+      break;
     }
   }
-  return arr.join(' ');
+  return arrStr.join('');
 }
 
 /**
