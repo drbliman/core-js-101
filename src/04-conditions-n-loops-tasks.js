@@ -211,8 +211,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const a = (circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2;
+  const b = circle.radius ** 2;
+  return a < b;
 }
 
 
@@ -227,8 +229,25 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let arr = [];
+  let a = '';
+  arr = str.split('');
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = 0; j < arr.length; j += 1) {
+      if (arr[i] === arr[j] && i !== j) {
+        a = arr[i];
+        for (let c = 0; c < arr.length; c += 1) {
+          if (arr[c] === a) {
+            arr.splice(c, 1);
+            c -= 1;
+          }
+        }
+        i = 0;
+      }
+    }
+  }
+  return arr.length > 0 ? arr[0] : null;
 }
 
 
@@ -254,8 +273,29 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let a1 = '';
+  let b1 = '';
+  let a2 = 0;
+  let b2 = 0;
+  if (isStartIncluded === true) {
+    a1 = '[';
+  } else {
+    a1 = '(';
+  }
+  if (isEndIncluded === true) {
+    b1 = ']';
+  } else {
+    b1 = ')';
+  }
+  if (a > b) {
+    a2 = b;
+    b2 = a;
+  } else {
+    a2 = a;
+    b2 = b;
+  }
+  return `${a1}${a2}, ${b2}${b1}`;
 }
 
 
@@ -271,8 +311,11 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let arr = str.split('');
+  arr = arr.reverse();
+  const str1 = arr.join('');
+  return str1;
 }
 
 
@@ -288,8 +331,11 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  let arr = String(num).split('');
+  arr = arr.reverse();
+  const num1 = arr.join('');
+  return Number(num1);
 }
 
 
@@ -313,8 +359,32 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = ccn.toString().split('').map((elem) => Number(elem));
+  if (arr.length % 2 === 0) {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (i % 2 === 0) {
+        arr[i] *= 2;
+        if (arr[i] > 9) {
+          arr[i] -= 9;
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (i % 2 !== 0) {
+        arr[i] *= 2;
+        if (arr[i] > 9) {
+          arr[i] -= 9;
+        }
+      }
+    }
+  }
+  let sum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    sum += arr[i];
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -331,8 +401,18 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let arr = num.toString().split('').map((elem) => Number(elem));
+  let sum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    sum += arr[i];
+    if (i === arr.length - 1 && sum > 9) {
+      arr = sum.toString().split('').map((elem) => Number(elem));
+      sum = 0;
+      i = -1;
+    }
+  }
+  return sum;
 }
 
 
@@ -357,8 +437,27 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const arr = str.split('');
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] === '[' && arr[i + 1] === ']') {
+      arr.splice(i, 2);
+      i = -1;
+    }
+    if (arr[i] === '(' && arr[i + 1] === ')') {
+      arr.splice(i, 2);
+      i = -1;
+    }
+    if (arr[i] === '{' && arr[i + 1] === '}') {
+      arr.splice(i, 2);
+      i = -1;
+    }
+    if (arr[i] === '<' && arr[i + 1] === '>') {
+      arr.splice(i, 2);
+      i = -1;
+    }
+  }
+  return arr.length === 0;
 }
 
 
