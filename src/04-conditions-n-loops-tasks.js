@@ -137,8 +137,51 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const arr = [
+    [rect1.left, rect1.top],
+    [rect1.left + rect1.width, rect1.top],
+    [rect1.left, rect1.top + rect1.height],
+    [rect1.left + rect1.width, rect1.top + rect1.height],
+    [rect2.left, rect2.top],
+    [rect2.left + rect2.width, rect2.top],
+    [rect2.left, rect2.top + rect2.height],
+    [rect2.left + rect2.width, rect2.top + rect2.height],
+  ];
+  let sum = 0;
+  if (arr[4][0] >= arr[0][0] && arr[4][0] <= arr[1][0]
+    && arr[4][1] >= arr[0][1] && arr[4][1] <= arr[2][1]) {
+    sum += 1;
+  }
+  if (arr[5][0] >= arr[0][0] && arr[5][0] <= arr[1][0]
+    && arr[5][1] >= arr[0][1] && arr[5][1] <= arr[2][1]) {
+    sum += 1;
+  }
+  if (arr[6][0] >= arr[0][0] && arr[6][0] <= arr[1][0]
+    && arr[6][1] >= arr[0][1] && arr[6][1] <= arr[2][1]) {
+    sum += 1;
+  }
+  if (arr[7][0] >= arr[0][0] && arr[7][0] <= arr[1][0]
+    && arr[7][1] >= arr[0][1] && arr[7][1] <= arr[2][1]) {
+    sum += 1;
+  }
+  if (arr[0][0] >= arr[4][0] && arr[0][0] <= arr[5][0]
+    && arr[0][1] >= arr[4][1] && arr[0][1] <= arr[6][1]) {
+    sum += 1;
+  }
+  if (arr[1][0] >= arr[4][0] && arr[1][0] <= arr[5][0]
+    && arr[1][1] >= arr[4][1] && arr[1][1] <= arr[6][1]) {
+    sum += 1;
+  }
+  if (arr[2][0] >= arr[4][0] && arr[2][0] <= arr[5][0]
+    && arr[2][1] >= arr[4][1] && arr[2][1] <= arr[6][1]) {
+    sum += 1;
+  }
+  if (arr[3][0] >= arr[4][0] && arr[3][0] <= arr[5][0]
+    && arr[3][1] >= arr[4][1] && arr[3][1] <= arr[6][1]) {
+    sum += 1;
+  }
+  return sum > 0;
 }
 
 
